@@ -1,0 +1,25 @@
+FROM centos:7
+
+WORKDIR /var/www/html
+
+RUN yum -y install epel-release && \
+    rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+
+RUN yum --enablerepo=remi-php81 -y install php httpd php-devel php-pdo php-pecl-fileinfo php-pear libtool-ltdl-devel
+
+
+RUN curl https://packages.microsoft.com/config/rhel/7/prod.repo > /etc/yum.repos.d/mssql-release.repo
+RUN yum remove unixODBC-utf16 unixODBC-utf16-devel
+RUN ACCEPT_EULA=Y yum install -y msodbcsql18
+RUN ACCEPT_EULA=Y yum install -y mssql-tools18
+RUN echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bashrc
+RUN source ~/.bashrc
+RUN yum install -y unixODBC unixODBC-devel
+RUN pecl install sqlsrv
+RUN pecl install pdo_sqlsrv
+
+RUN echo -e "extension=sqlsrv.so" >> /etc/php.ini && \
+    echo -e "extension=pdo.so" >> /etc/php.ini && \
+    echo -e "extension=pdo_sqlsrv.so" >> /etc/php.ini
+
+EXPOSE 80
