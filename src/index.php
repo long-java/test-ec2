@@ -1,6 +1,6 @@
 <?php
 
-echo 'Thanh cong roi nhe 2'; die;
+echo 'Thanh cong roi nhe 3'; die;
 
 $servername = "mysql_db";
 $username = "root";
