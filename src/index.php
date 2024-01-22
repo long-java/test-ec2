@@ -1,42 +1,45 @@
 <?php
 
-echo 'Thanh cong roi nhe 3'; die;
+phpinfo();
 
-$servername = "mysql_db";
-$username = "root";
-$password = "root";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password);
+die;
 
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-echo "Connected successfully";
-echo "<br>";
+// $servername = "mysql_db";
+// $username = "root";
+// $password = "root";
 
-$sql = "SELECT * FROM docker1.invoice";
-$result = $conn->query($sql);
+// // Create connection
+// $conn = new mysqli($servername, $username, $password);
 
-if ($result->num_rows > 0) {
-  // output data of each row
-  while($row = $result->fetch_assoc()) {
-    echo "id: " . $row["id"]. " - Number: " . $row["number"] . "<br>";
-  }
-} else {
-  echo "<br>" . "0 results";
-}
-$conn->close();
+// // Check connection
+// if ($conn->connect_error) {
+//   die("Connection failed: " . $conn->connect_error);
+// }
+// echo "Connected successfully";
+// echo "<br>";
 
-// the message
-$msg = "First line of text\nSecond line of text";
+// $sql = "SELECT * FROM docker1.invoice";
+// $result = $conn->query($sql);
 
-// use wordwrap() if lines are longer than 70 characters
-$msg = wordwrap($msg,70);
+// if ($result->num_rows > 0) {
+//   // output data of each row
+//   while($row = $result->fetch_assoc()) {
+//     echo "id: " . $row["id"]. " - Number: " . $row["number"] . "<br>";
+//   }
+// } else {
+//   echo "<br>" . "0 results";
+// }
+// $conn->close();
 
-// send email
-var_dump(mail("someone@example.com","My subject",$msg));
+// // the message
+// $msg = "First line of text\nSecond line of text";
+
+// // use wordwrap() if lines are longer than 70 characters
+// $msg = wordwrap($msg,70);
+
+// // send email
+// var_dump(mail("someone@example.com","My subject",$msg));
 
 
 
