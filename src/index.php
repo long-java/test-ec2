@@ -1,6 +1,45 @@
 <?php
 
-phpinfo();
+echo 1000;
+
+
+/* Địa chỉ SQL Server */
+$serverName = "database-1.c6vf61rj3op3.us-east-1.rds.amazonaws.com,1433";
+/* Tài khoản kết nối */
+$uid = 'sa';
+$pwd = 'JWF1BDjEhaEY1laxYcLD';
+$database = 'rdsadmin';
+
+// Tạo kết nối
+try {  
+    // Chú ý thông tin kết nối bắt đầu bởi sqlsrv: cho biết PDO dùng driver PDO_SQLSRV
+    $conn = new PDO( "sqlsrv:server=$serverName;Database = $database", $uid, $pwd);   
+    $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );   
+ }  
+
+ catch( PDOException $e ) {  
+    die( "Lỗi kết nối MS SQL Server: " . $e->getMessage());   
+ }   
+
+/* Thực hiện truy vấn dữ liệu, lấy 5 dòng đầu tiên của bảng Sanpham */
+$number_row = 5;
+/* Viết câu truy vấn, có tham số :number_row */
+$tsql = "SELECT TOP(:number_row) TenSanpham, Gia FROM Sanpham";
+$stmt = $conn->prepare($tsql);
+/* Truyền tham số */
+$stmt->bindParam(':number_row', $number_row, PDO::PARAM_INT);
+/* Chạy câu truy vấn, trả về  PDOStatement */
+$stmt->execute();
+/* Đọc các dòng thông tin. */
+$rows = [];
+while($row = $stmt->fetch(SQLSRV_FETCH_ASSOC))
+{
+    $rows[] = $row;
+}
+print_r($rows);
+
+$stmt = null;       // Giải phóng tài nguyên câu truy vấn
+$conn = null;      // Giải phóng, ngắt kết nối SQL Server
 
 
 die;
