@@ -8,7 +8,7 @@ $serverName = "database-1.c6vf61rj3op3.us-east-1.rds.amazonaws.com,1433";
 /* Tài khoản kết nối */
 $uid = 'sa';
 $pwd = 'JWF1BDjEhaEY1laxYcLD';
-$database = 'rdsadmin';
+$database = 'dblong';
 
 // Tạo kết nối
 try {  
@@ -24,7 +24,7 @@ try {
 /* Thực hiện truy vấn dữ liệu, lấy 5 dòng đầu tiên của bảng Sanpham */
 $number_row = 5;
 /* Viết câu truy vấn, có tham số :number_row */
-$tsql = "SELECT TOP(:number_row) TenSanpham, Gia FROM Sanpham";
+$tsql = "SELECT TOP(:number_row) name, Gia FROM product";
 $stmt = $conn->prepare($tsql);
 /* Truyền tham số */
 $stmt->bindParam(':number_row', $number_row, PDO::PARAM_INT);
